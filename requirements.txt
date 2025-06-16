@@ -13,3 +13,4 @@ langchain-groq
 huggingface_hub
 langchain_ollama 
 faiss-cpu
+sentence-transformers
