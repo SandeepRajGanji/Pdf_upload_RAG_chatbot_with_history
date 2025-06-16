@@ -3,7 +3,8 @@ from langchain_community.document_loaders import PyPDFLoader
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_groq import ChatGroq
 from langchain_text_splitters import RecursiveCharacterTextSplitter
-from langchain_chroma import Chroma
+#from langchain_chroma import Chroma
+from langchain.vectorstores import FAISS
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain.chains.combine_documents import create_stuff_documents_chain
 from langchain.chains import create_history_aware_retriever, create_retrieval_chain
@@ -39,7 +40,7 @@ if api_key:
         
         text_splitter=RecursiveCharacterTextSplitter(chunk_size=1000,chunk_overlap=100)
         split_docs=text_splitter.split_documents(documents)
-        vector_store=Chroma.from_documents(documents=split_docs,embedding=embeddings)
+        vector_store=FAISS.from_documents(documents=split_docs,embedding=embeddings)
         retriever=vector_store.as_retriever()
 
         contextualize_q_system_prompt=(
